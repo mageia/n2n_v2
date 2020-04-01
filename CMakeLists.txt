@@ -70,57 +70,57 @@ if(N2N_OPTION_AES)
 target_link_libraries(n2n crypto)
 endif(N2N_OPTION_AES)
 
-add_executable(edge edge.c)
-target_link_libraries(edge n2n)
+add_executable(edge_v2 edge.c)
+target_link_libraries(edge_v2 n2n)
 
-add_executable(supernode sn.c)
-target_link_libraries(supernode n2n)
+add_executable(supernode_v2 sn.c)
+target_link_libraries(supernode_v2 n2n)
 
-add_executable(test test.c)
-target_link_libraries(test n2n)
+# add_executable(test test.c)
+# target_link_libraries(test n2n)
 
-add_executable(benchmark benchmark.c)
-target_link_libraries(benchmark n2n)
+# add_executable(benchmark benchmark.c)
+# target_link_libraries(benchmark n2n)
 
-install(TARGETS edge supernode
+install(TARGETS edge_v2 supernode_v2
         RUNTIME DESTINATION sbin
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
        )
 
 # Documentation
-if(DEFINED UNIX)
-add_dependencies(n2n doc)
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/doc)
-add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/edge.8.gz
-                   COMMAND gzip -c ${PROJECT_SOURCE_DIR}/edge.8 > ${PROJECT_BINARY_DIR}/doc/edge.8.gz
-                   DEPENDS ${PROJECT_SOURCE_DIR}/edge.8
-                  )
-
-add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
-                   COMMAND gzip -c ${PROJECT_SOURCE_DIR}/supernode.1 > ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
-                   DEPENDS ${PROJECT_SOURCE_DIR}/supernode.1
-                  )
-
-add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
-                   COMMAND gzip -c ${PROJECT_SOURCE_DIR}/n2n.7 > ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
-                   DEPENDS ${PROJECT_SOURCE_DIR}/n2n.7
-                  )
-
-add_custom_target(doc DEPENDS ${PROJECT_BINARY_DIR}/doc/edge.8.gz
-                              ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
-                              ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
-                 )
-
-set_source_files_properties(${PROJECT_BINARY_DIR}/doc/edge.8.gz
-                            ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
-                            ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
-                            PROPERTIES GENERATED 1)
-
-install(FILES ${PROJECT_BINARY_DIR}/doc/edge.8.gz
-        DESTINATION /usr/share/man8)
-install(FILES ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
-        DESTINATION /usr/share/man1)
-install(FILES ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
-        DESTINATION /usr/share/man7)
-endif(DEFINED UNIX)
+# if(DEFINED UNIX)
+# add_dependencies(n2n doc)
+# file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/doc)
+# add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/edge.8.gz
+#                    COMMAND gzip -c ${PROJECT_SOURCE_DIR}/edge.8 > ${PROJECT_BINARY_DIR}/doc/edge.8.gz
+#                    DEPENDS ${PROJECT_SOURCE_DIR}/edge.8
+#                   )
+# 
+# add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
+#                    COMMAND gzip -c ${PROJECT_SOURCE_DIR}/supernode.1 > ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
+#                    DEPENDS ${PROJECT_SOURCE_DIR}/supernode.1
+#                   )
+# 
+# add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
+#                    COMMAND gzip -c ${PROJECT_SOURCE_DIR}/n2n.7 > ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
+#                    DEPENDS ${PROJECT_SOURCE_DIR}/n2n.7
+#                   )
+# 
+# add_custom_target(doc DEPENDS ${PROJECT_BINARY_DIR}/doc/edge.8.gz
+#                               ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
+#                               ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
+#                  )
+# 
+# set_source_files_properties(${PROJECT_BINARY_DIR}/doc/edge.8.gz
+#                             ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
+#                             ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
+#                             PROPERTIES GENERATED 1)
+# 
+# install(FILES ${PROJECT_BINARY_DIR}/doc/edge.8.gz
+#         DESTINATION /usr/share/man8)
+# install(FILES ${PROJECT_BINARY_DIR}/doc/supernode.1.gz
+#         DESTINATION /usr/share/man1)
+# install(FILES ${PROJECT_BINARY_DIR}/doc/n2n.7.gz
+#         DESTINATION /usr/share/man7)
+# endif(DEFINED UNIX)
